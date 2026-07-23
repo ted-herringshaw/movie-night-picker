@@ -726,12 +726,37 @@ body {
 /* ---------- Responsive ---------- */
 
 @media (max-width: 720px) {
+  /* Reflow to: banner, curtains, spin button (kept above the fold), a 2x2
+     of the four filter panels, then genres. .theater-grid and .side-col
+     are desktop-only grouping wrappers — display:contents removes their
+     own box so their children become direct grid items of .app and can
+     be placed independently via the areas below. */
+  .app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "title  title"
+      "stage  stage"
+      "spin   spin"
+      "length score"
+      "era    stream"
+      "genre  genre"
+      "status status";
+    gap: 12px;
+  }
+
+  .theater-grid,
   .side-col {
-    max-width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: contents;
   }
-  .side-col .panel {
-    flex: 1 1 200px;
-  }
+
+  .marquee-title { grid-area: title; }
+  .center-col { grid-area: stage; }
+  .panel-cyan { grid-area: length; }
+  .panel-lime { grid-area: score; }
+  .panel-orange { grid-area: era; }
+  .panel-pink { grid-area: stream; }
+  .genre-panel { grid-area: genre; }
+  #spinButton { grid-area: spin; }
+  #statusMessage { grid-area: status; }
 }
