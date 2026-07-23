@@ -759,4 +759,20 @@ body {
   .genre-panel { grid-area: genre; }
   #spinButton { grid-area: spin; }
   #statusMessage { grid-area: status; }
+
+  /* Drop the poster so the title card reads full-width — the overview
+     text wraps into fewer lines, keeping the reveal card shorter. */
+  .result-poster {
+    display: none;
+  }
+
+  /* Shrink the banner to fit "🍿 MOVIE NIGHT, BABY! 🍿" on one line —
+     the desktop clamp() floor (22px) is still too wide for a phone
+     screen, so scale it down further and tighten the padding to keep
+     the pill short vertically too. */
+  .marquee-pill {
+    font-size: clamp(13px, calc(7.5vw - 8px), 40px);
+    padding: 8px 14px;
+    white-space: nowrap;
+  }
 }
