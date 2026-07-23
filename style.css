@@ -100,7 +100,7 @@ body {
   flex-wrap: wrap;
   gap: 12px;
   justify-content: center;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .side-col {
@@ -403,7 +403,6 @@ body {
 .stage {
   position: relative;
   width: 100%;
-  min-height: clamp(380px, 70vh, 680px);
   border: 6px solid #000;
   border-radius: 14px;
   overflow: hidden;
@@ -478,22 +477,38 @@ body {
 .stage.open .curtain-right { transform: translateX(102%); }
 
 .stage-screen {
-  position: absolute;
-  inset: 46px 12px 12px 12px;
+  /* Normal flow (not absolutely positioned) so the stage's own height
+     tracks whichever child is currently visible — tight for the idle
+     prompt, tight for a no-trailer result card, tall enough when a
+     trailer is showing — with no min-height guess and no internal
+     scrollbar. The valance/lights/curtains stay absolutely positioned
+     overlays and just cover whatever height this ends up being. */
+  position: relative;
+  margin: 46px 12px 12px 12px;
   border-radius: 8px;
   background: radial-gradient(circle at 50% 40%, #241236, #06010e);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   z-index: 1;
-  overflow-y: auto;
   padding: 16px 10px 10px;
 }
 
+.stage-idle,
+.slot-machine {
+  min-height: 220px;
+}
+
 .stage-idle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: auto 0;
   text-align: center;
   animation: idlebob 2.6s ease-in-out infinite;
+}
+.stage-idle[hidden] {
+  display: none;
 }
 @keyframes idlebob {
   0%, 100% { transform: translateY(0) rotate(-2.5deg); }
